@@ -55,3 +55,6 @@ Relaciones y Cardinalidad:
         Extracción de los teléfonos a una tabla satélite Telefono_Empleado.  
     Justificación: 
         El dominio estipula que un empleado puede registrar "uno o más teléfonos". Mantener un atributo multivaluado rompe la Primera Forma Normal (1NF). Al normalizarlo en una tabla separada con llave compuesta (Cédula + Teléfono), permitimos flexibilidad sin límite de crecimiento para el registro de contactos.  
+
+
+Para garantizar el rigor de la notación extendida de Chen, se representaron las restricciones de participación total mediante líneas dobles (líneas enriquecidas en el diagrama). Específicamente, la entidad débil 'Cita' presenta participación total hacia sus relaciones con Paciente, Médico y Sede, ya que ninguna cita puede existir de manera aislada en el dominio sin dichos componentes. Asimismo, la relación de generalización de Empleado posee una participación total, reflejando que es una jerarquía total y disjunta.
