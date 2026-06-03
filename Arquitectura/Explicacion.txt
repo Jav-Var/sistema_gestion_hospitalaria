@@ -1,0 +1,57 @@
+Entidades Fuertes:
+    Sede: Se identifica por un código único. Almacena nombre, dirección y ciudad.
+    Empleado: Se identifica por cédula. Almacena nombre completo, fecha de nacimiento, correo electrónico. 
+    Paciente: Se identifica por número de documento. Almacena nombre, fecha de nacimiento, dirección y grupo sanguíneo.
+    Medicamento: Se identifica por código único. Almacena nombre comercial, principio activo y presentación.
+    
+
+Entidades Débiles:
+    Cita: El documento especifica explícitamente que una cita "no tiene sentido sin el paciente" y se distingue por un "número consecutivo dentro de las citas de cada paciente". Por ende, es una entidad débil. Su llave primaria será compuesta: la llave del Paciente + el consecutivo.
+
+
+Jerarquía de Especialización:
+    Los empleados se clasifican en Médicos, Enfermeros y Administrativos.  
+    El discriminador ISA {d} en el diagrama ER chen: La "d" en el centro del rombo de herencia especifica explícitamente que la relación es disjunta (un empleado no puede ser Médico y Administrativo a la vez), cumpliendo al pie de la letra con las reglas de negocio dictadas en el caso.
+
+
+Regla deducida: Todo empleado pertenece "exactamente a una de estas categorías", lo que la hace total y disjunta.  Los atributos específicos son: especialidad y registro médico (Médicos); turno (Enfermeros); cargo (Administrativos).
+
+
+Atributos Multivaluados:
+    El empleado puede tener "uno o más teléfonos de contacto". Esto requiere una tabla independiente para cumplir con la Primera Forma Normal (1NF).
+    
+
+Relaciones y Cardinalidad:
+    Sede - Cita: En una sede se realizan "muchas citas", cada cita en "exactamente una sede" (Relación 1:N).
+    Médico - Cita: Un médico atiende "muchas citas", una cita es atendida por "exactamente un médico" (Relación 1:N).  
+    Paciente - Cita: Relación identificadora (1:N), el paciente posee la cita débil.  
+    Cita - Medicamento: Un medicamento puede prescribirse en muchas citas, en una cita se prescriben varios medicamentos (Relación N:M). Esto genera la entidad asociativa Prescripción, que aloja los atributos de intersección dosis y duración.
+
+
+
+1. Jerarquía de Generalización/Especialización (Empleado)
+    Decisión:
+        Se optó por la Opción C de mapeo relacional:
+            Crear una tabla para la superclase (Empleado) y una tabla independiente para cada subclase (Médico, Enfermero, Administrativo) unidas por una llave foránea que también es llave primaria.  
+    Justificación: 
+        El dominio establece que la especialización es total y disjunta ("Todo empleado pertenece a exactamente una de estas categorías... y no hay empleados sin categoría"). 
+        Utilizar una tabla única con atributos nulos (Opción A) desperdiciaría espacio en disco y complicaría las restricciones de integridad. La Opción C garantiza que los atributos específicos (ej. el registro médico) solo existan cuando semánticamente correspondan a ese rol.
+
+
+2. Entidad Débil (Cita)
+    Decisión: 
+        Modelar Cita como entidad débil dependiente de Paciente mediante una relación identificadora.
+    Justificación: 
+        Una cita pierde todo su significado en el negocio si no está asociada al paciente que la solicitó. Por lo tanto, su llave primaria en el modelo relacional obligatoriamente debe ser compuesta: hereda el numero_documento del Paciente y lo combina con un discriminador local (consecutivo_cita) para lograr unicidad.
+
+3. Resolución de la Relación N:M (Cita y Medicamento)
+    Decisión:
+        Creación de la entidad asociativa / tabla intermedia Prescripción.  
+    Justificación: 
+        Dado que un medicamento se receta en muchas citas y una cita puede tener múltiples medicamentos, el modelo relacional exige romper esta cardinalidad de muchos a muchos. La tabla resultante Prescripción aloja las llaves primarias de ambas entidades y captura los atributos descriptivos de la relación (dosis y duración), los cuales dependen directamente del cruce cita-medicamento y no de las entidades por separado.    
+
+4. Manejo de Atributos Multivaluados (Teléfonos)
+    Decisión: 
+        Extracción de los teléfonos a una tabla satélite Telefono_Empleado.  
+    Justificación: 
+        El dominio estipula que un empleado puede registrar "uno o más teléfonos". Mantener un atributo multivaluado rompe la Primera Forma Normal (1NF). Al normalizarlo en una tabla separada con llave compuesta (Cédula + Teléfono), permitimos flexibilidad sin límite de crecimiento para el registro de contactos.  
