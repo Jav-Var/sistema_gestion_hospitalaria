@@ -96,7 +96,7 @@ CREATE TABLE cita(
         ON DELETE RESTRICT
         ON UPDATE CASCADE,
         
-	constraint fk_cedula_medico
+	constraint fk_cedula_medico_cita
 		foreign key (cedula_medico) references medico(cedula)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
