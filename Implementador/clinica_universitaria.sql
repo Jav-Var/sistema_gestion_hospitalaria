@@ -16,8 +16,7 @@ CREATE TABLE empleado(
     fecha_nacimiento date NOT NULL,
     correo_electronico varchar(100) NOT NULL,
     
-    CONSTRAINT chk_correo_valido CHECK (correo_electronico LIKE '%_@__%.__%'),
-    CONSTRAINT chk_fecha_nacimiento_emp CHECK (fecha_nacimiento <= CURDATE())
+    CONSTRAINT chk_correo_valido CHECK (correo_electronico LIKE '%_@__%.__%')
 );
 
 CREATE TABLE telefono_empleado(
@@ -72,9 +71,7 @@ CREATE TABLE paciente(
     nombre varchar(100) NOT NULL,
     fecha_nacimiento date NOT NULL,
     direccion varchar(100) NOT NULL,
-    grupo_sanguineo enum("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"),
-    
-    CONSTRAINT chk_fecha_nacimiento_pac CHECK (fecha_nacimiento <= CURDATE())
+    grupo_sanguineo enum("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
 );
 
 CREATE TABLE cita(
