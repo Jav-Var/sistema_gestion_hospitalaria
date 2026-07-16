@@ -1,0 +1,11 @@
+numero_documento,nombre,fecha_nacimiento,direccion,grupo_sanguineo
+5001,Juan Martinez,2010-05-15,Calle 1 # 10-20,O+
+5002,Luisa Fernandez,1990-08-20,Carrera 2 # 30-40,A+
+5003,Roberto Vega,1985-12-10,Avenida 3 # 50-60,B-
+5004,Carmen Lora,1970-03-05,Transversal 4 # 70-80,AB+
+5005,Diego Cruz,2005-07-22,Diagonal 5 # 90-10,O-
+5006,Rosa Gil,1998-09-14,Calle 6 # 11-12,A-
+5007,Miguel Paz,1965-01-30,Carrera 7 # 13-14,O+
+5008,Sara Leon,2015-11-18,Avenida 8 # 15-16,B+
+5009,Tomas Rivas,1988-04-25,Transversal 9 # 17-18,A+
+5010,Juliana Soto,1992-10-12,Diagonal 10 # 19-20,O+
