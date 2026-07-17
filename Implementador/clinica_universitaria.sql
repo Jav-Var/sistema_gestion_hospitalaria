@@ -1,3 +1,4 @@
+-- Implementador DDL (Gabriel Esteban Medina Enciso)
 CREATE DATABASE IF NOT EXISTS clinica_universitaria;
 USE clinica_universitaria;
 
